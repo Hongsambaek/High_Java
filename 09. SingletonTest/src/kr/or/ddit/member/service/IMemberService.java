@@ -53,5 +53,15 @@ public interface IMemberService {
 	 * @return 모든 회원정보를 담은 List객체
 	 */
 	public List<MemberVO> getTotalMember();
+	
+	
+	
+	
+	/**
+	 * 회원정보를 검색하기 위한 메소드
+	 * @param mv 검색할 회원정보를 담은 MemberVO객체
+	 * @return 검색된 회원정보를 담은 List객체
+	 */
+	public List<MemberVO> searchMember(MemberVO mv);
 }
    

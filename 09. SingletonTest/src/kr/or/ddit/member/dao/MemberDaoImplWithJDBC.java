@@ -172,6 +172,8 @@ public class MemberDaoImplWithJDBC implements IMemberDao{
 				mv.setMemAddr(memAddr);
 				mv.setRegDt(regDt);
 				
+				memList.add(mv);
+				
 			}
 
 
@@ -180,6 +182,79 @@ public class MemberDaoImplWithJDBC implements IMemberDao{
 		} finally {
 			JDBCUtil3.close(conn, stmt, pstmt, rs);
 		}
+		
+		return memList;
+	}
+
+	@Override
+	public List<MemberVO> searchMember(MemberVO mv) {
+		
+		List<MemberVO> memList = new ArrayList<MemberVO>();
+		
+		try {
+			
+			conn = JDBCUtil3.getConnection();
+			
+			String sql = "select * from mymember where 1=1";
+			if(mv.getMemId() != null && !mv.getMemId().equals("")) {
+				sql += " and mem_id = ? ";
+			}
+			if(mv.getMemName() != null && !mv.getMemName().equals("")) {
+				sql += " and mem_name = ? ";
+			}
+			if(mv.getMemTel() != null && !mv.getMemTel().equals("")) {
+				sql += " and mem_tel = ? ";
+			}
+			if(mv.getMemAddr() != null && !mv.getMemAddr().equals("")) {
+				sql += " and mem_addr like '%' || ? || '%' ";
+			}
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			int paramIndex = 1;
+			
+			if(mv.getMemId() != null && !mv.getMemId().equals("")) {
+				pstmt.setString(paramIndex++, mv.getMemId());
+			}
+			if(mv.getMemName() != null && !mv.getMemName().equals("")) {
+				pstmt.setString(paramIndex++, mv.getMemName());
+			}
+			if(mv.getMemTel() != null && !mv.getMemTel().equals("")) {
+				pstmt.setString(paramIndex++, mv.getMemTel());
+			}
+			if(mv.getMemAddr() != null && !mv.getMemAddr().equals("")) {
+				pstmt.setString(paramIndex++, mv.getMemAddr());
+			}
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+
+				String memId = rs.getString("mem_id");
+				String memName = rs.getString("mem_name");
+				String memTel = rs.getString("mem_tel");
+				String memAddr = rs.getString("mem_addr");
+
+				LocalDate regDt = rs.getTimestamp("reg_dt").toLocalDateTime().toLocalDate();
+				
+				MemberVO mv2 = new MemberVO();
+				mv2.setMemId(memId);
+				mv2.setMemName(memName);
+				mv2.setMemTel(memTel);
+				mv2.setMemAddr(memAddr);
+				mv2.setRegDt(regDt);
+				
+				memList.add(mv2);
+				
+			}
+			
+		}catch (SQLException ex) {
+			ex.printStackTrace();
+		}finally {
+			JDBCUtil3.close(conn, stmt, pstmt, rs);
+		}
+		
 		
 		return memList;
 	}

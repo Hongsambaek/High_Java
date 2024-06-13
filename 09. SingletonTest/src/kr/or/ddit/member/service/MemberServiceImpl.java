@@ -57,5 +57,11 @@ public class MemberServiceImpl implements IMemberService{
 		
 		return memDao.getAllMember();
 	}
-
+	
+	public List<MemberVO> searchMember(MemberVO mv) {
+		
+		return memDao.searchMember(mv);
+		
+	}
+	
 }
