@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import HomeWork.Util.HomeWorkUtil2;
+import HomeWork.Util.JDBCUtil2;
 
 public class HomeWork08 {
 
@@ -80,7 +80,7 @@ public class HomeWork08 {
 		System.out.println("---------------------------------------------------");
 
 		try {
-			conn = HomeWorkUtil2.getConnection();
+			conn = JDBCUtil2.getConnection();
 			String sql = " select * from jdbc_board where BOARD_Writer = ? ";
 
 			pstmt = conn.prepareStatement(sql);
@@ -107,7 +107,7 @@ public class HomeWork08 {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			HomeWorkUtil2.close(conn, stmt, pstmt, rs);
+			JDBCUtil2.close(conn, stmt, pstmt, rs);
 		}
 	}
 
@@ -119,7 +119,7 @@ public class HomeWork08 {
 
 		//////////////////////////////////////////////////////
 		try {
-			conn = HomeWorkUtil2.getConnection();
+			conn = JDBCUtil2.getConnection();
 			String sql = " delete from jdbc_board where BOARD_NO = ? ";
 
 			pstmt = conn.prepareStatement(sql);
@@ -135,7 +135,7 @@ public class HomeWork08 {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			HomeWorkUtil2.close(conn, stmt, pstmt, rs);
+			JDBCUtil2.close(conn, stmt, pstmt, rs);
 		}
 	}
 
@@ -171,7 +171,7 @@ public class HomeWork08 {
 		////////////////////////////////////////////////////////////////////////
 
 		try {
-			conn = HomeWorkUtil2.getConnection();
+			conn = JDBCUtil2.getConnection();
 			String sql = " update jdbc_board\r\n"
 					+ "set BOARD_TITLE=?, BOARD_WRITER=?, BOARD_CONTENT=? where BOARD_NO = ? ";
 
@@ -192,7 +192,7 @@ public class HomeWork08 {
 			e.printStackTrace();
 		} finally {
 			// 자원반납 close = finally 넣는이유 반드시 실행해야하기때문에
-			HomeWorkUtil2.close(conn, stmt, pstmt, rs);
+			JDBCUtil2.close(conn, stmt, pstmt, rs);
 		}
 	}
 
@@ -203,7 +203,7 @@ public class HomeWork08 {
 		System.out.println("---------------------------------------------------");
 
 		try {
-			conn = HomeWorkUtil2.getConnection();
+			conn = JDBCUtil2.getConnection();
 
 			stmt = conn.createStatement();
 
@@ -225,7 +225,7 @@ public class HomeWork08 {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			HomeWorkUtil2.close(conn, stmt, pstmt, rs);
+			JDBCUtil2.close(conn, stmt, pstmt, rs);
 		}
 
 	}
@@ -247,7 +247,7 @@ public class HomeWork08 {
 		///////////////////////////////
 		try {
 
-			conn = HomeWorkUtil2.getConnection();
+			conn = JDBCUtil2.getConnection();
 			String sql = " insert into jdbc_board(board_no, board_title, board_writer, board_date, board_content)\r\n"
 					+ "values(BOARD_SEQ.NEXTVAL,?,?,sysdate,?)";
 			pstmt = conn.prepareStatement(sql);
@@ -266,7 +266,7 @@ public class HomeWork08 {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			HomeWorkUtil2.close(conn, stmt, pstmt, rs);
+			JDBCUtil2.close(conn, stmt, pstmt, rs);
 		}
 	}
 
@@ -274,7 +274,7 @@ public class HomeWork08 {
 
 		boolean isExist = false;
 		try {
-			conn = HomeWorkUtil2.getConnection();
+			conn = JDBCUtil2.getConnection();
 			String sql = " select count(*) as cnt\r\n" + "from jdbc_board\r\n" + "where board_no=? ";
 			pstmt = conn.prepareStatement(sql);
 
@@ -295,7 +295,7 @@ public class HomeWork08 {
 			ex.printStackTrace();
 		} finally {
 			// 꼭! 마지막 자원반납해주기
-			HomeWorkUtil2.close(conn, stmt, pstmt, rs);
+			JDBCUtil2.close(conn, stmt, pstmt, rs);
 		}
 		return isExist;
 	}

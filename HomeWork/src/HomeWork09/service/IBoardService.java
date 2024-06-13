@@ -1,8 +1,8 @@
-package HomeWork.service;
+package HomeWork09.service;
 
 import java.util.List;
 
-import HomeWork.vo.BoardVO;
+import HomeWork09.vo.BoardVO;
 
 public interface IBoardService {
 

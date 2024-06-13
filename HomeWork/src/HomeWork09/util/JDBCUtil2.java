@@ -1,4 +1,4 @@
-package HomeWork.Util;
+package HomeWork09.util;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,40 +10,49 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 /**
  * db.properties파일의 내용으로 DB정보를 설정하는 방법
- * 방법1) ResourceBundle 객체 이용하기
+ * 방법1) Properties 객체 이용하기
  * @author PC-27
  *
  */
-public class HomeWorkUtil3 {
+public class JDBCUtil2 {
 	
-	static ResourceBundle bundle;
+	static Properties prop;
 	
 	static {
 		
-		bundle = ResourceBundle.getBundle("db");
+		
 		
 		
 		try {
+			prop = new Properties();
+			
+			prop.load(new FileInputStream("./res/db.properties"));
 			
 			
-			Class.forName(bundle.getString("driver"));
+			
+			Class.forName(prop.getProperty("driver"));
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
 	public static Connection getConnection() {
 		try {
 			return DriverManager.getConnection(
-					bundle.getString("url"),
-					bundle.getString("username"),
-					bundle.getString("password"));
+					prop.getProperty("url"),
+					prop.getProperty("username"),
+					prop.getProperty("password"));
 					
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

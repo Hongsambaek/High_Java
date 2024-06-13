@@ -1,24 +1,24 @@
-package HomeWork;
+package HomeWork09;
 
 import java.util.List;
 import java.util.Scanner;
 
-import HomeWork.service.BoardServiceImpl;
-import HomeWork.service.IBoardService;
-import HomeWork.vo.BoardVO;
+import HomeWork09.service.BoardServiceImpl;
+import HomeWork09.service.IBoardService;
+import HomeWork09.vo.BoardVO;
 
-public class HomeWork09 {
+public class BoardMain {
 
 	private Scanner scan;
 	private IBoardService boardService;
 
-	public HomeWork09() {
+	public BoardMain() {
 		scan = new Scanner(System.in);
 		boardService = BoardServiceImpl.getInstance();
 	}
 
 	public static void main(String[] args) {
-		HomeWork09 board = new HomeWork09();
+		BoardMain board = new BoardMain();
 		board.start();
 	}
 

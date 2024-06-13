@@ -1,4 +1,4 @@
-package HomeWork.dao;
+package HomeWork09.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,9 +9,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import HomeWork.Util.HomeWorkUtil2;
-import HomeWork.Util.HomeWorkUtil3;
-import HomeWork.vo.BoardVO;
+import HomeWork09.util.JDBCUtil2;
+import HomeWork09.util.JDBCUtil3;
+import HomeWork09.vo.BoardVO;
 
 public class BoardDaoImplwithJDBC implements IBoardDao {
 	private static IBoardDao boardao = new BoardDaoImplwithJDBC();
@@ -33,7 +33,7 @@ public class BoardDaoImplwithJDBC implements IBoardDao {
 	public int insertBoard(BoardVO bv) {
 		int cnt = 0;
 		try {
-			conn = HomeWorkUtil3.getConnection();
+			conn = JDBCUtil3.getConnection();
 			String sql = " insert into jdbc_board(board_no, board_title, board_writer, board_date, board_content)\r\n"
 					+ "values(BOARD_SEQ.NEXTVAL,?,?,sysdate,?)";
 			pstmt = conn.prepareStatement(sql);
@@ -47,7 +47,7 @@ public class BoardDaoImplwithJDBC implements IBoardDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			HomeWorkUtil2.close(conn, stmt, pstmt, rs);
+			JDBCUtil2.close(conn, stmt, pstmt, rs);
 		}
 		return cnt;
 	}
@@ -56,7 +56,7 @@ public class BoardDaoImplwithJDBC implements IBoardDao {
 	public int updateBoard(BoardVO bv) {
 		int cnt = 0;
 		try {
-			conn = HomeWorkUtil3.getConnection();
+			conn = JDBCUtil3.getConnection();
 			String sql = " update jdbc_board\r\n"
 					+ "set BOARD_TITLE=?, BOARD_WRITER=?, BOARD_CONTENT=? where BOARD_NO = ? ";
 
@@ -72,7 +72,7 @@ public class BoardDaoImplwithJDBC implements IBoardDao {
 			e.printStackTrace();
 		} finally {
 			// 자원반납 close = finally 넣는이유 반드시 실행해야하기때문에
-			HomeWorkUtil3.close(conn, stmt, pstmt, rs);
+			JDBCUtil3.close(conn, stmt, pstmt, rs);
 		}
 		return cnt;
 	}
@@ -81,7 +81,7 @@ public class BoardDaoImplwithJDBC implements IBoardDao {
 	public List<BoardVO> searchBoard(String boardWriter) {
 		List<BoardVO> boardlist = new ArrayList<BoardVO>();
 		try {
-			conn = HomeWorkUtil3.getConnection();
+			conn = JDBCUtil3.getConnection();
 			String sql = " select * from jdbc_board where BOARD_Writer = ? ";
 
 			pstmt = conn.prepareStatement(sql);
@@ -107,7 +107,7 @@ public class BoardDaoImplwithJDBC implements IBoardDao {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			HomeWorkUtil3.close(conn, stmt, pstmt, rs);
+			JDBCUtil3.close(conn, stmt, pstmt, rs);
 		}
 		return boardlist;
 	}
@@ -116,7 +116,7 @@ public class BoardDaoImplwithJDBC implements IBoardDao {
 	public List<BoardVO> getAllBoard() {
 		List<BoardVO> boardlist = new ArrayList<BoardVO>();
 		try {
-			conn = HomeWorkUtil3.getConnection();
+			conn = JDBCUtil3.getConnection();
 
 			stmt = conn.createStatement();
 
@@ -141,7 +141,7 @@ public class BoardDaoImplwithJDBC implements IBoardDao {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			HomeWorkUtil3.close(conn, stmt, pstmt, rs);
+			JDBCUtil3.close(conn, stmt, pstmt, rs);
 		}
 		return boardlist;
 	}
@@ -150,7 +150,7 @@ public class BoardDaoImplwithJDBC implements IBoardDao {
 	public boolean checkBoard(String boardNo) {
 		boolean isExist = false;
 		try {
-			conn = HomeWorkUtil3.getConnection();
+			conn = JDBCUtil3.getConnection();
 			String sql = " select count(*) as cnt\r\n" + "from jdbc_board\r\n" + "where board_no=? ";
 			pstmt = conn.prepareStatement(sql);
 
@@ -169,7 +169,7 @@ public class BoardDaoImplwithJDBC implements IBoardDao {
 			ex.printStackTrace();
 		} finally {
 			// 꼭! 마지막 자원반납해주기
-			HomeWorkUtil3.close(conn, stmt, pstmt, rs);
+			JDBCUtil3.close(conn, stmt, pstmt, rs);
 		}
 		return isExist;
 	}
@@ -178,7 +178,7 @@ public class BoardDaoImplwithJDBC implements IBoardDao {
 	public int deleteBoard(String boardNo) {
 		int cnt = 0;
 		try {
-			conn = HomeWorkUtil2.getConnection();
+			conn = JDBCUtil2.getConnection();
 			String sql = " delete from jdbc_board where BOARD_NO = ? ";
 
 			pstmt = conn.prepareStatement(sql);
@@ -189,7 +189,7 @@ public class BoardDaoImplwithJDBC implements IBoardDao {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			HomeWorkUtil3.close(conn, stmt, pstmt, rs);
+			JDBCUtil3.close(conn, stmt, pstmt, rs);
 		}
 		return cnt;
 	}

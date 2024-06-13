@@ -1,14 +1,22 @@
-package HomeWork.vo;
+package HomeWork09.vo;
 
 import java.time.LocalDate;
 
 public class BoardVO {
-
+	private String boardNo;
 	private String boardTitle;
 	private String boardWriter;
-	private LocalDate boardDate;
 	private String boardContent;
-	private int boardNo;
+
+	private LocalDate regDt;
+
+	public String getBoardNo() {
+		return boardNo;
+	}
+
+	public void setBoardNo(String boardNo) {
+		this.boardNo = boardNo;
+	}
 
 	public String getBoardTitle() {
 		return boardTitle;
@@ -26,14 +34,6 @@ public class BoardVO {
 		this.boardWriter = boardWriter;
 	}
 
-	public LocalDate getBoardDate() {
-		return boardDate;
-	}
-
-	public void setBoardDate(LocalDate boardDate) {
-		this.boardDate = boardDate;
-	}
-
 	public String getBoardContent() {
 		return boardContent;
 	}
@@ -42,18 +42,18 @@ public class BoardVO {
 		this.boardContent = boardContent;
 	}
 
-	public int getBoardNo() {
-		return boardNo;
+	public LocalDate getRegDt() {
+		return regDt;
 	}
 
-	public void setBoardNo(int boardNo) {
-		this.boardNo = boardNo;
+	public void setRegDt(LocalDate regDt) {
+		this.regDt = regDt;
 	}
 
 	@Override
 	public String toString() {
-		return "BoardVO [boardTitle=" + boardTitle + ", boardWriter=" + boardWriter + ", boardDate=" + boardDate
-				+ ", boardContent=" + boardContent + ", boardNo=" + boardNo + "]";
+		return "BoardVO [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardWriter=" + boardWriter
+				+ ", boardContent=" + boardContent + ", regDt=" + regDt + "]";
 	}
 
 }

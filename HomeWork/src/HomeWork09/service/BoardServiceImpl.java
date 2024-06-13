@@ -1,10 +1,10 @@
-package HomeWork.service;
+package HomeWork09.service;
 
 import java.util.List;
 
-import HomeWork.dao.BoardDaoImplwithJDBC;
-import HomeWork.dao.IBoardDao;
-import HomeWork.vo.BoardVO;
+import HomeWork09.dao.BoardDaoImplwithJDBC;
+import HomeWork09.dao.IBoardDao;
+import HomeWork09.vo.BoardVO;
 
 public class BoardServiceImpl implements IBoardService {
 	private IBoardDao boardDao;

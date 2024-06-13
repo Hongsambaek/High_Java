@@ -1,8 +1,8 @@
-package HomeWork.dao;
+package HomeWork09.dao;
 
 import java.util.List;
 
-import HomeWork.vo.BoardVO;
+import HomeWork09.vo.BoardVO;
 
 public interface IBoardDao {
 	public int insertBoard(BoardVO bv);
