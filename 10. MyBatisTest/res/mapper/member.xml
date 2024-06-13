@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="memberTest">
+<mapper namespace="member">
 
 <!--
 
@@ -65,7 +65,30 @@
 	
 	</select>
 	
-	<select id="getMember" resultType="kr.or.ddit.member.vo.MemberVO">
+	<select id="checkMember" resultType="int">
+	
+		select count(*) as cnt
+		from mymember
+		where mem_id = #{memId}
+	
+	
+	
+	
+	</select>
+	
+	<select id="getMember2" parameterType="Map"  resultType="HashMap">
+	
+		select mem_id,
+			   mem_name,
+			   mem_tel,
+			   mem_addr,
+			   reg_dt 
+		from mymember
+		where mem_id = #{memId}
+	
+	</select>
+	
+	<select id="searchMember" resultType="kr.or.ddit.member.vo.MemberVO">
 	
 		select mem_id as memId,
 			   mem_name as memName,
@@ -73,7 +96,28 @@
 			   mem_addr as memAddr,
 			   reg_dt as regDt 
 		from mymember
-		where mem_id = #{memId}
+		<where>
+			<if test='memId != null and memId !=""'>
+				and mem_id = #{memId}
+			</if>
+			
+		
+			<if test='memName != null and memName !=""'>
+				and mem_name = #{memName}
+			</if>
+			
+		
+			<if test='memTel != null and !memTel.equals("")'>
+				and mem_tel = #{memTel}
+			</if>
+			
+		
+			<if test='memAddr != null and memAddr !=""'>
+				and mem_addr like '%' || #{memAddr} || '%'
+			</if>
+		</where>
+	
+	
 	
 	</select>
 

@@ -3,7 +3,9 @@ package kr.or.ddit.basic;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.io.Resources;
@@ -175,5 +177,33 @@ public class MyBatisTest {
 		} finally {
 			session.close();
 		}
+		
+		
+		// 3) VO가 아닌 Map을 이용한 방식 사용
+				System.out.println("select 연습(VO가 아닌 Map을 이용한 방식...)");
+				
+				session = sqlSessionFactory.openSession(true);
+				
+				try {
+					
+					Map<String, String> paramMap = new HashMap<String, String>();
+					paramMap.put("memId", "d001");
+					
+					
+					Map<String, Object> resultMap = session.selectOne("memberTest.getMember2", paramMap);
+					
+					System.out.println("ID : " + resultMap.get("MEM_ID"));
+					System.out.println("이름 : " + resultMap.get("MEM_NAME"));
+					System.out.println("전화번호 : " + resultMap.get("MEM_TEL"));
+					System.out.println("주소 : " + resultMap.get("MEM_ADDR"));
+					
+					System.out.println("────────────────────────────────────────────────────");
+					
+				} catch (PersistenceException ex) {
+					ex.printStackTrace();
+				} finally {
+					session.close();
+				}
+		
 	}
 }
