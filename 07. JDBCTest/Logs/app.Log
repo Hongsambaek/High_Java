@@ -1,0 +1,2 @@
+쿼리문 : insert into mymember(mem_id, mem_name, mem_tel, mem_addr)
+values(?, ?, ?, ?)
