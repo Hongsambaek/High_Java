@@ -9,6 +9,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import kr.or.ddit.util.JDBCUtil3;
 
 /*
@@ -48,6 +51,14 @@ public class T01MemberInfoTest {
 	private ResultSet rs;
 
 	private Scanner scan = new Scanner(System.in);
+	
+	private static final Logger SQL_LOGGER = LogManager.getLogger("log4jexam.sql.Query");
+	private static final Logger PARAM_LOGGER = LogManager.getLogger("log4jexam.sql.Parameter");
+	private static final Logger Result_LOGGER = LogManager.getLogger(T01MemberInfoTest.class);
+	
+	
+	
+	
 
 	/**
 	 * 메뉴를 출력하는 메서드
@@ -226,14 +237,14 @@ public class T01MemberInfoTest {
 
 	private void insertMember() {
 		boolean isExist = false;
-		String memID = "";
+		String memId = "";
 		do {
 			System.out.println();
 			System.out.println("추가할 회원 정보를 입력해주세요.");
 			System.out.print("회원ID >> ");
-			memID = scan.next();
+			memId = scan.next();
 
-			isExist = checkMember(memID);
+			isExist = checkMember(memId);
 			if (isExist) {
 				System.out.println("이미 존재하는 ID입니다.");
 				continue;
@@ -255,20 +266,29 @@ public class T01MemberInfoTest {
 			conn = JDBCUtil3.getConnection();
 
 			String sql = "insert into mymember(mem_id, mem_name, mem_tel, mem_addr)\r\n" + "values(?, ?, ?, ?)";
-
+			
+			SQL_LOGGER.debug("쿼리문 : " + sql);
+			
+			
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, memID);
+			pstmt.setString(1, memId);
 			pstmt.setString(2, memName);
 			pstmt.setString(3, memTel);
 			pstmt.setString(4, memAddr);
+			
+			PARAM_LOGGER.debug("파라미터 값 : memId = " + memId + ", memName" + memName + 
+					", memTel : " + memTel + ", memAddr : " + memAddr);
+			
 
 			int cnt = pstmt.executeUpdate();
+			
+			Result_LOGGER.info("결과값 : {}", cnt);
 
 			if (cnt > 0) {
-				System.out.println(memID + "인 회원정보 등록 success");
+				System.out.println(memId + "인 회원정보 등록 success");
 			} else {
-				System.out.println(memID + "인 회원정보 등록 fail");
+				System.out.println(memId + "인 회원정보 등록 fail");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
