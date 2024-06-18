@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<body>
+  <a href="//naver.com">Go Naver</a>
+  <button onclick="location.reload()">새로고침</button>
+</body>
+<script>
+
+  document.querySelector('#replace').addEventListener('click', function(){
+
+    
+    // location.replace('랜덤색_proxy.html')
+
+
+    // 뒤로 이동 불가
+    location.assign('랜덤색_proxy.html')
+    /* 
+      href(assign) vs replace
+      href - 페이지가 '이동' 되므로 이전 페이지로도 이동 가능
+           - history에 기록되므로 캐시된 페이지를 보여주거나 서버에 요청하는 구조
+
+
+      replace - 페이지가 '변경'되기 때문에 이전 페이지로 이동 불가
+              - history에 기록되지 않으며 항상 서버에 페이지를 요청하는 구조
+     */
+
+
+  });
+
+  console.log(location.herf);
+  console.log(location.port);
+  console.log(location.hostname);
+
+  // location.href 로 문서 이동
+  document.querySelector('a').addEventListener('click', function(e){
+    e.preventDefault(); // 이벤트 대상의 기본 기능을 중지
+    // location.href = "//google.com";
+    location.assign('http://www.ddit.or.kr');
+  });
+
+
+</script>

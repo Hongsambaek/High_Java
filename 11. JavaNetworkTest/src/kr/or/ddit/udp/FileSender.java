@@ -20,7 +20,7 @@ public class FileSender {
 			ds = new DatagramSocket();
 			this.port = port;
 			receiveAddr = InetAddress.getByName(receiveIp);
-			file = new File("d:/D_Other/aaa.jpg");
+			file = new File("d:/D_Other/개구리모코코.jpg");
 			
 			if(!file.exists()) {
 				System.out.println("파일이 존재하지 않습니다.");
@@ -107,6 +107,10 @@ public class FileSender {
 	 */
 	public void sendData(byte[] data) throws IOException {
 		sendData(data, data.length);
+	}
+	
+	public static void main(String[] args) {
+		new FileSender("192.168.36.146", 8888).start();
 	}
 	
 }
