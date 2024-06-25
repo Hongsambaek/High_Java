@@ -82,6 +82,7 @@ class GameTimer extends Thread{
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+				
 			}
 		}
 		System.out.println("시간이 초과되어 당신이 졌습니다.");
@@ -104,7 +105,7 @@ class UserInput extends Thread {
 		}while(!inputData.equals("가위") && !inputData.equals("바위") && !inputData.equals("보"));
 
 		T07ThreadGame.inputCheck = true;  // 입력이 완료됨을 알려주는 변수값을 변경한다.
-		T07ThreadGame.man = inputData;	   //  입력값 설정
+		T07ThreadGame.man = inputData;	// 입력값 설정
 	}
 }
 
