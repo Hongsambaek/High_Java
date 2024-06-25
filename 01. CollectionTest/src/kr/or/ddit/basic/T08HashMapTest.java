@@ -13,7 +13,7 @@ public class T08HashMapTest {
 
 		// 데이터 추가 => put(key값, value값);
 		map.put("name", "홍길동");
-		map.put("te;", "010-1111-1111");
+		map.put("tel", "010-1111-1111");
 		map.put("addr", "대전");
 
 		System.out.println("map => " + map);
